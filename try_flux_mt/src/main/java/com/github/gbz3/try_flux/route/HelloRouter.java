@@ -5,13 +5,10 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -19,7 +16,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @Component
 public class HelloRouter {
@@ -41,10 +37,10 @@ public class HelloRouter {
 	}
 	
 	private Mono<ServerResponse> handle( ServerRequest req ) {
-		final Mono<List<String>> rr = req.body( BodyExtractors.toMono( RequestResource.class ) ).subscribeOn( Schedulers.elastic() ).map( s -> {
-			logger.info( "method={} params={}", req.pathVariable( "method" ), s.getParams() );
-			return s.getParams();
-		}).log();
+//		final Mono<List<String>> rr = req.body( BodyExtractors.toMono( RequestResource.class ) ).subscribeOn( Schedulers.elastic() ).map( s -> {
+//			logger.info( "method={} params={}", req.pathVariable( "method" ), s.getParams() );
+//			return s.getParams();
+//		}).log();
 //		final Mono<RequestResource> rr = req.body( BodyExtractors.toMono( RequestResource.class ) );
 //		rr.subscribeOn( Schedulers.elastic() ).map( s -> {
 //			logger.info( "method={} params={}", req.pathVariable( "method" ), s.getParams() );
