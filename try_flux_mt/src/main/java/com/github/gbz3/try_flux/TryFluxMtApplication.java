@@ -17,7 +17,7 @@ public class TryFluxMtApplication {
 	
 	@Bean
 	public RouterFunction<ServerResponse> routes( HelloRouter helloRouter ) {
-		return helloRouter.route();
+		return helloRouter.routes();
 	}
 
 }

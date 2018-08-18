@@ -1,8 +1,10 @@
 package com.github.gbz3.try_flux.route;
 
+import static org.springframework.web.reactive.function.server.RouterFunctions.*;
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
-import static org.springframework.web.reactive.function.server.ServerResponse.ok;
+import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -15,9 +17,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class HelloRouter {
 	
-	public RouterFunction<ServerResponse> route() {
-		return RouterFunctions
-				.route( POST( "/ctl_mpe/hello" ), this::hello );
+	@Autowired
+	HelloRouterProps props;
+	
+	public RouterFunction<ServerResponse> routes() {
+		return RouterFunctions.nest( path( props.getRoute() ),
+				route( POST( "/hello" ), this::hello )
+				);
 	}
 	
 	private Mono<ServerResponse> hello( ServerRequest req ) {
