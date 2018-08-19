@@ -2,6 +2,7 @@ package com.github.gbz3.try_flux.route;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class MyControllerUT {
 	public void testHandle() {
 		// setup
 		final RequestResource rr = new RequestResource();
-		rr.setParams( Arrays.asList( "" ) );
+		rr.setParams( new ArrayList<String>() );
 		final MyController ctl = new MyController();
 		
 		// UT では DI されないので自前で値を設定する。
@@ -20,7 +21,7 @@ public class MyControllerUT {
 		ctl.props.setRoute( "" );
 		
 		// test
-		assertThat( ctl.handle( "", rr ) ).isEqualTo( "[]" );
+		assertThat( ctl.handle( "", rr ).getParams() ).isEqualTo( Arrays.asList( "", "" ) );
 	}
 
 }
